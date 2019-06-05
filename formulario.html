@@ -39,22 +39,116 @@
 				text-align: center
 			}
 			label {
-				font-family: 'Crimson Text', serif;
+				font-family: 'Crimson Text', serif
 			}
 			input[type="text"], input[type="date"], input[type="email"], input[type="password"] {
-  				background-color : #333;
+  				background-color : #333
 			}
-			input[type="date"] {
+			input[type="date"], h3, h4, h5 {
 				color: #999
 			}
 			.custom-select {
 				background:#333;
-				color: #999;
+				color: #999
+			}
+			h4 {
+				text-align: justify
+			}
+			h3, h5 {
+				text-align: center
+			}
+			h5 {
+				color: #EC1616
 			}
 		</style>
 		<script type="text/javascript">
 			function mudarCor(){
 				document.getElementById("cor-red").style.color = '#D50000';
+			}
+
+			function criarTabela(){
+				var radios = document.getElementsByName("qtdParc");
+				for (var i = 0; i < radios.length; i++) {
+			        if (radios[i].checked) {
+			            quantidade = radios[i].value;
+			        }
+			    }
+
+				if (quantidade != 0 || quantidade != null) {
+					calcParcelas(quantidade);
+
+					t = document.getElementById("parcelas");
+					t1 = document.createElement("table");
+					t1.className = "table table-hover";
+					th1 = document.createElement("thead");
+					l1 = document.createElement("tr");
+					d1 = document.createElement("td");
+					d1.innerHTML = "1ª Parcela";
+					d2 = document.createElement("td");
+					d2.innerHTML = "R$".concat(parcela1.toString());
+					t.appendChild(t1);
+					t1.appendChild(th1);
+					th1.appendChild(l1);
+					l1.appendChild(d1);
+					l1.appendChild(d2);
+
+					if (quantidade == 2 || quantidade == 3) {									
+						tb1 = document.createElement("tbody");
+						l2 = document.createElement("tr");
+						d3 = document.createElement("td");
+						d3.innerHTML = "2ª Parcela";
+						d4 = document.createElement("td");
+						d4.innerHTML = "R$".concat(parcela2.toString());
+						t1.appendChild(tb1);
+						tb1.appendChild(l2);
+						l2.appendChild(d3);
+						l2.appendChild(d4);
+					}
+
+					if (quantidade == 3) {									
+						tb2 = document.createElement("tbody");
+						l3 = document.createElement("tr");
+						d5 = document.createElement("td");
+						d5.innerHTML = "3ª Parcela";
+						d6 = document.createElement("td");
+						d6.innerHTML = "R$".concat(parcela3.toString());
+						t1.appendChild(tb2);
+						tb2.appendChild(l3);
+						l3.appendChild(d5);
+						l3.appendChild(d6);
+					}
+				}		
+			}
+
+			function calcParcelas(qtdParcelas){
+				var plano = 580;
+				var juros = 0.05;
+				var somJuros = 1 + juros;
+
+				if (qtdParcelas == 1) {
+					parcela1 = plano;
+				} else {
+					if (qtdParcelas == 2) {
+						parcela1 = plano / 2;
+						parcela1 = parcela1.toFixed(2);
+						plano = plano - parcela1;
+						var potJuros = Math.pow(somJuros, 1);
+						parcela2 = plano * potJuros;
+						parcela2 = parcela2.toFixed(2);
+					} else {
+						base = plano / 3;
+						parcela1 = plano / 3;
+						parcela1 = parcela1.toFixed(2);
+						//plano = plano - parcela1;
+						var potJuros = Math.pow(somJuros, 1);
+						parcela2 = base * potJuros;
+						parcela2 = parcela2.toFixed(2);
+						//plano = plano - parcela2;
+						potJuros = Math.pow(somJuros, 2);
+						parcela3 = base * potJuros;
+						parcela3 = parcela3.toFixed(2);
+					}
+				}
 			}
 		</script>
 	</head>
@@ -141,6 +235,38 @@
 							<button type="submit" class="btn btn-primary">Enviar</button>
 						</div>
 					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<h2>Deseja entrar para a para o grupo REHome e garantir acesso a novidades e brindes exclusivos?</h2>
+					<h4>Com a assinatura REHome, você tem acesso a diversas notícias e artigos sobre o mundo Resident Evil antes dos outros usuários, versão deluxe de Resident Evil 2, case de controle de console (a sua preferência), Action Figure dos personagens clássicos e três bonecos Funko Pop (Opções: Jill Valentine de Resident Evil 1, Leon Scott Kennedy de Resident Evil 4, Nêmesis, Licker, Hunter ou Tyrant).</h4>
+					<h5>Preço: R$ 580,00</h5>
+					<h3>Aproveite e faça a simulação de pagamento, selecione a quantidade de parcelas que deseja realizar o pagamento:</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="form-group text-center">
+						<label for="parc">Parcelas: </label>
+						<input type="radio" name="qtdParc" value="1"> 1
+						<input type="radio" name="qtdParc" value="2"> 2
+						<input type="radio" name="qtdParc" value="3"> 3
+						<!-- <button type="submit" class="btn btn-primary" onclick="criarTabela()">Simular</button> -->
+					</div>
+					<div class="form-group text-center">
+						<button type="submit" class="btn btn-primary" onclick="criarTabela()">Simular</button>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col">
+					<div id="parcelas">
+					</div>
 				</div>
 			</div>
 		</div>
