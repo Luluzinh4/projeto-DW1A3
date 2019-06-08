@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pt">
 	<head>
 		<!-- Required meta tags -->
 		<meta charset="utf-8">
@@ -10,10 +10,7 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
 		<link rel="stylesheet" href="lib/css/bootstrap.min.css">
 
-		<!-- Letra do título da página -->
-		<link rel="stylesheet" href="lib/css/fontStylish.css">
-
-		<!-- Letra para o resto da página -->
+		<!-- CSS do tipo de fonte -->
 		<link rel="stylesheet" href="lib/css/fontCrimson.css">
 
 		<title>Resident Evil World</title>
@@ -23,14 +20,14 @@
 				background-color: #000
 			}
 			.nav-link {
-				color: #DDD;
 				font-size: 20px;
+				color: #DDD;
 			}
 			.nav-link:hover {
 				color: #EA2027;
+				background-color: #111
 			}
 			#cor-red {
-				font-family: 'Stylish', sans-serif;
 				font-size: 50px;
 				text-align: center
 			}
@@ -60,13 +57,30 @@
 			h5 {
 				color: #EC1616
 			}
+
+			/*Estilos pegos do tema Slate do site Bootswatch*/
+			.table-hover tbody tr:hover {
+  				color: #aaa;
+  				background-color: rgba(255, 255, 255, 0.075);
+			}
+
+			.table-hover .table-dark:hover {
+  				background-color: #b6b7b8;
+			}
+
+			.table-hover .table-dark:hover > td,
+			.table-hover .table-dark:hover > th {
+  				background-color: #b6b7b8;
+			}
 		</style>
-		<script type="text/javascript">
+		<script>
 			function mudarCor(){
 				document.getElementById("cor-red").style.color = '#D50000';
 			}
 
 			function criarTabela(){
+				deleteChild();
+
 				var radios = document.getElementsByName("qtdParc");
 				for (var i = 0; i < radios.length; i++) {
 			        if (radios[i].checked) {
@@ -80,7 +94,7 @@
 					t = document.getElementById("parcelas");
 					t1 = document.createElement("table");
 					t1.className = "table table-hover";
-					th1 = document.createElement("thead");
+					th1 = document.createElement("tbody");
 					l1 = document.createElement("tr");
 					d1 = document.createElement("td");
 					d1.innerHTML = "1ª Parcela";
@@ -150,6 +164,17 @@
 					}
 				}
 			}
+
+			function deleteChild(){
+				var nodes = document.getElementById("parcelas");
+				if (nodes.hasChildNodes()) {
+					var child = nodes.lastElementChild;
+					while(child){
+						nodes.removeChild(child);
+						child = nodes.lastElementChild;
+					}
+				}
+			}
 		</script>
 	</head>
 	<body onload="mudarCor()">
@@ -175,20 +200,20 @@
 						<h2>Formulário</h2>
 						<div class="form-group">
 							<label for="nome">Nome: </label>
-							<input type="text" class="form-control" id="nome" aria-describedby="nomeHelp" placeholder="Insira o seu nome completo">
+							<input type="text" class="form-control" id="nome" placeholder="Insira o seu nome completo">
 						</div>
 						<div class="form-group">
 							<label for="data">Data de Nascimento: </label>
-							<input type="date" class="form-control" id="data" aria-describedby="dataHelp" placeholder="Insira a data de nascimento">
+							<input type="date" class="form-control" id="data">
 						</div>
 						<div class="form-group">
-							<label for="jogos">Você jogou algum dos jogos da franquia: </label> <br>
+							<label>Você jogou algum dos jogos da franquia: </label> <br>
 							<input type="radio" name="jaJogou" value="sim"> Sim
 							<input type="radio" name="jaJogou" value="nao"> Não
 						</div>
 						<div class="form-group">
-							<label for="jogopref">Selecione seu jogo preferido: </label>
-							<select class="custom-select" id="resident-evil">
+							<label>Selecione seu jogo preferido: </label>
+							<select class="custom-select" id="jogospref">
 								<option selected>Selecione um dos jogos abaixo</option>
 								<option value="re">Resident Evil</option>
 								<option value="re-dc">Resident Evil Director's Cut</option>
@@ -217,11 +242,11 @@
 						</div>
 						<div class="form-group">
 							<label for="email">E-mail: </label>
-							<input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Insira o e-mail">
+							<input type="email" class="form-control" id="email" placeholder="Insira o e-mail">
 						</div>
 						<div class="form-group">
 							<label for="emailConfirm">E-mail: </label>
-							<input type="email" class="form-control" id="emailConfirm" aria-describedby="emailHelp" placeholder="Insira o e-mail novamente">
+							<input type="email" class="form-control" id="emailConfirm" placeholder="Insira o e-mail novamente">
 						</div>
 						<div class="form-group">
 							<label for="senha">Senha: </label>
@@ -251,14 +276,15 @@
 			<div class="row">
 				<div class="col">
 					<div class="form-group text-center">
-						<label for="parc">Parcelas: </label>
+						<label>Parcelas: </label>
 						<input type="radio" name="qtdParc" value="1"> 1
 						<input type="radio" name="qtdParc" value="2"> 2
 						<input type="radio" name="qtdParc" value="3"> 3
 						<!-- <button type="submit" class="btn btn-primary" onclick="criarTabela()">Simular</button> -->
 					</div>
 					<div class="form-group text-center">
-						<button type="submit" class="btn btn-primary" onclick="criarTabela()">Simular</button>
+						<button type="submit" class="btn btn-primary" onclick="criarTabela()">Simular</button><br>
+						<small>(Juros de 5% ao mês)</small>
 					</div>
 				</div>
 			</div>
