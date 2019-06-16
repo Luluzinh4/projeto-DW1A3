@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt">
 	<head>
 		<!-- Required meta tags -->
 		<meta charset="utf-8">
@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
 		<link rel="stylesheet" href="lib/css/bootstrap.min.css">
 
-		<!-- Letra para o resto da página -->
+		<!-- Letra do tipo de fonte -->
 		<link rel="stylesheet" href="lib/css/fontCrimson.css">
 
 		<title>Resident Evil World</title>
@@ -20,11 +20,12 @@
 				background-color: #000
 			}
 			.nav-link {
-				color: #DDD;
 				font-size: 20px;
+				color: #DDD;
 			}
 			.nav-link:hover {
 				color: #EA2027;
+				background-color: #111
 			}
 			#cor-red {
 				font-size: 50px;
@@ -41,7 +42,7 @@
   				background-color : #333;
 			}
 		</style>
-		<script type="text/javascript">
+		<script>
 			function mudarCor(){
 				document.getElementById("cor-red").style.color = '#D50000';
 			}
@@ -70,11 +71,11 @@
 						<h2>Login</h2>
 						<div class="form-group">
 							<label for="email">E-mail: </label>
-							<input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Insira o e-mail">
+							<input type="email" class="form-control" id="email" placeholder="Insira o e-mail" required>
 						</div>
 						<div class="form-group">
 							<label for="senha">Senha: </label>
-							<input type="password" class="form-control" id="senha" placeholder="Insira a senha">
+							<input type="password" class="form-control" id="senha" placeholder="Insira a senha" required>
 						</div>
 						<!-- <div class="form-group form-check">
 							<input type="checkbox" class="form-check-input" id="remember-me">
